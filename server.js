@@ -33,22 +33,11 @@ app.engine("html", require("ejs").renderFile);
 app.use(express.static(__dirname + '/public'));
 
 app.use(cookieParser());
-app.use(
-    session({
-      secret: "secr3t",
-      resave: false,
-      saveUninitialized: true,
-    })
-  );
 
 app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-const isLoggedIn = (req, res, next) => {
-    req.user ? next() : res.sendStatus(401);
-  };
   
 
 app.get(
