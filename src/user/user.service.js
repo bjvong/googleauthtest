@@ -24,9 +24,17 @@ const getUserByEmail =
     });
   };
 
+  const addLocalUser = (User) => ({ id, email, firstName, lastName, password }) => {
+    const user = new User({
+      id, email, firstName, lastName, password, source: "local"
+    })
+    return user.save()
+  }
+
 module.exports = (User) => {
   return {
     addGoogleUser: addGoogleUser(User),
+    addLocalUser: addLocalUser(User),
     getUsers: getUsers(User),
     getUserByEmail: getUserByEmail(User),
   };

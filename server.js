@@ -68,14 +68,60 @@ app.get("/auth/logout", (req, res) => {
     });
   });
 
-app.get("/", (req, res) => {
+  app.get("/g", (req, res) => {
+    res.render("google.ejs");
+  });
+  
+  app.get("/", (req, res) => {
     res.render("index.ejs");
+  });
+  
+  app.get("/local/signup", (req, res) => {
+    res.render("local/signup.ejs");
+  });
+  
+  app.get("/local/signin", (req, res) => {
+    res.render("local/signin.ejs");
   });
 
 app.get("/profile", isLoggedIn, (req, res) => {
     res.render("profile.ejs", { user: req.user });
   });
 
+  app.post("/auth/local/signup", async (req, res) => {
+    const { first_name, last_name, email, password } = req.body
+  
+    if (password.length < 8) {
+      req.flash("error", "Account not created. Password must be 7+ characters long");
+      return res.redirect("/local/signup");
+    }
+  
+    const hashedPassword = await bcrypt.hash(password, 10)
+  
+    try {
+      await UserService.addLocalUser({
+        id: uuid.v4(),
+        email,
+        firstName: first_name,
+        lastName: last_name,
+        password: hashedPassword
+      })
+    } catch (e) {
+      req.flash("error", "Error creating a new account. Try a different login method.");
+      res.redirect("/local/signup")
+    }
+  
+    res.redirect("/local/signin")
+  });
+  
+  app.post("/auth/local/signin",
+    passport.authenticate("local", {
+      successRedirect: "/profile",
+      failureRedirect: "/local/signin",
+      failureFlash: true
+    })
+  );
+  
 
 const server = app.listen(port, function() {
     console.log('Server is listening on port ' + port);
