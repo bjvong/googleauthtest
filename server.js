@@ -6,8 +6,12 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require("express-session");
 const flash = require("express-flash");
+const uuid = require("uuid");
+const bcrypt = require("bcrypt");
+const UserService = require("./src/user");
 
 require("./src/config/google");
+require("./src/config/local");
 require("./src/config/passport");
 
 const port = process.env.PORT || 8050;
