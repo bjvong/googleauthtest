@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require("express-session");
+const flash = require("express-flash");
 
 require("./src/config/google");
 
@@ -32,6 +33,8 @@ app.use(
     })
   );
 
+app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
   
@@ -55,6 +58,10 @@ app.get(
 
 app.get("/", (req, res) => {
     res.render("index.ejs");
+  });
+
+app.get("/profile", isLoggedIn, (req, res) => {
+    res.render("profile.ejs", { user: req.user });
   });
 
 
