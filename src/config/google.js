@@ -9,7 +9,7 @@ passport.use(new GoogleStrategy(
         callbackURL: 'https://gentle-ocean-27020.herokuapp.com/auth/google/callback',
         scope: ['email']
     },
-    async (accessToken, refreshToken, profile, done) => {
+    (accessToken, refreshToken, profile, done) => {
         console.log('user profile is:', profile);
     }
 ));
