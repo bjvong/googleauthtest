@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
+const session = require("express-session");
 
 require("./src/config/google");
 
@@ -23,6 +24,13 @@ app.engine("html", require("ejs").renderFile);
 app.use(express.static(__dirname + '/public'));
 
 app.use(cookieParser());
+app.use(
+    session({
+      secret: "secr3t",
+      resave: false,
+      saveUninitialized: true,
+    })
+  );
 
 app.use(passport.initialize());
 app.use(passport.session());
