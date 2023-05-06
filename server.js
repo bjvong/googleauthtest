@@ -50,7 +50,7 @@ app.get(
     })
   );
   
-  app.get(
+app.get(
     "/auth/google/callback",
     passport.authenticate("google", {
       failureRedirect: "/",
@@ -59,6 +59,14 @@ app.get(
       successFlash: "Successfully logged in!",
     })
   );
+
+app.get("/auth/logout", (req, res) => {
+    req.flash("success", "Successfully logged out");
+    req.session.destroy(function () {
+      res.clearCookie("connect.sid");
+      res.redirect("/");
+    });
+  });
 
 app.get("/", (req, res) => {
     res.render("index.ejs");
