@@ -9,18 +9,7 @@ require("./src/config/google");
 
 const port = process.env.PORT || 8050;
 const db = process.env.MONGO_URI;
-mongoose.connect(
-  db,
-  {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  },
-  (error) => {
-    if (error) console.log(error);
-  }
-);
+mongoose.connect(db);
 
 
 app.use(bodyParser.json());
