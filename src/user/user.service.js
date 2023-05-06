@@ -6,6 +6,7 @@ const addGoogleUser =
       email,
       firstName,
       lastName,
+      balance: 100,
       profilePhoto,
       source: "google",
     });
@@ -26,7 +27,7 @@ const getUserByEmail =
 
   const addLocalUser = (User) => ({ id, email, firstName, lastName, password }) => {
     const user = new User({
-      id, email, firstName, lastName, password, source: "local"
+      id, email, firstName, lastName, password, balance: 100, source: "local"
     })
     return user.save()
   }

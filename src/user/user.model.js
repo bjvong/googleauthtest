@@ -13,8 +13,8 @@ const userSchema = new Schema({
   },
   firstName: String,
   lastName: String,
+  balance: Number,
   profilePhoto: String,
-  balance: 100,
   password: String,
   source: {
     type: String,
