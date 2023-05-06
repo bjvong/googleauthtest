@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require("express-session");
 const flash = require("express-flash");
+const UserService = require("./src/user");
 
 require("./src/config/google");
 
@@ -41,13 +42,6 @@ app.use(passport.session());
 const isLoggedIn = (req, res, next) => {
     req.user ? next() : res.sendStatus(401);
   };
-
-app.get(
-    "/auth/google",
-    passport.authenticate("google", {
-      scope: ["profile", "email"],
-    })
-  );
   
   app.get(
     "/auth/google/callback",
