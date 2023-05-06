@@ -115,7 +115,7 @@ app.get("/profile", isLoggedIn, (req, res) => {
       res.redirect("/local/signup")
     }
   
-    res.redirect("/local/signin")
+    //res.redirect("/local/signin")
   });
   
   app.post("/auth/local/signin",
